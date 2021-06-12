@@ -28,6 +28,10 @@ function Vector2.new(x, y)
   return self
 end
 
+function Vector2.__tostring(self)
+  return "(" .. self.x .. ", " .. self.y .. ")"
+end
+
 -- Returns a Vector2 with components `0, 0`
 function Vector2.zero()
   return Vector2.new(0, 0)
@@ -167,6 +171,7 @@ function Vector2:equals(other)
     or (type(other) == "table" and other.x and other.y) then
     return self.x == other.x and self.y == other.y
   end
+
   return false
 end
 
@@ -257,3 +262,5 @@ end
 function Vector2.reflected(vector, normal)
   return vector:clone():reflect(normal)
 end
+
+return Vector2

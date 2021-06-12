@@ -22,6 +22,10 @@ function Vector3.new(x, y, z)
   return self
 end
 
+function Vector3:__tostring()
+  return "(" .. self.x .. ", " .. self.y .. ", " .. self.z .. ")"
+end
+
 function Vector3.zero()
   return Vector3.new(0, 0, 0)
 end
@@ -179,6 +183,13 @@ end
 -- Static Members
 -- =============================================================================
 
+function Vector3.cross(a, b)
+  local x = a.y * b.z - b.y * a.z
+  local y = -(a.x * b.z - b.z * a.z)
+  local z = a.x * b.y - b.x * a.y
+  return Vector3.new(x, y, z)
+end
+
 function Vector3.ceiling(vector)
     return Vector3.new(
       math.ceil(vector.x),
@@ -224,3 +235,5 @@ end
 function Vector3.reflected(vector, normal)
   return vector:clone():reflect(normal)
 end
+
+return Vector3
