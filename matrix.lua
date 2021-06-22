@@ -1,4 +1,4 @@
-local toolbox = (...):gsub("vector3", "")
+local toolbox = (...):gsub("matrix", "")
 local Vector3 = require(toolbox .. "vector3")
 
 local Matrix = {}
@@ -149,11 +149,7 @@ end
 
 function Matrix.viewMatrix(eye, target, down)
   local result = Matrix.fromPool()
-  local zt = Vector3.normalised(
-    eye.x - target.x,
-    eye.y - target.y,
-    eye.z - target.z
-  )
+  local zt = Vector3.normalised(eye - target)
   local xt = Vector3.normalised(
     Vector3.cross(down, zt)
   )
@@ -172,7 +168,7 @@ function Matrix.viewMatrix(eye, target, down)
   result[9] = zt.x
   result[10] = zt.y
   result[11] = zt.z
-  result[12] = -1 * Vector3.dot(zt)
+  result[12] = -1 * Vector3.dot(zt, eye)
 
   return result
 end

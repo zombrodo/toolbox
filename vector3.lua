@@ -37,6 +37,7 @@ function Vector3:set(x, y, z)
   self.x = x
   self.y = y
   self.z = z
+  return self
 end
 
 function Vector3:clone(pooled)
@@ -181,6 +182,7 @@ function Vector3:normalise()
   self.x = self.x * v
   self.y = self.y * v
   self.z = self.z * v
+  return self
 end
 
 function Vector3:reflect(normal)
