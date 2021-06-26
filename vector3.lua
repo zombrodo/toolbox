@@ -33,6 +33,10 @@ function Vector3.zero()
   return Vector3.new(0, 0, 0)
 end
 
+function Vector3.one()
+  return Vector3.new(1, 1, 1)
+end
+
 function Vector3:set(x, y, z)
   self.x = x
   self.y = y
@@ -45,6 +49,10 @@ function Vector3:clone(pooled)
     return Vector3.fromPool(self.x, self.y, self.z)
   end
   return Vector3.new(self.x, self.y, self.z)
+end
+
+function Vector3:unpack()
+  return self.x, self.y, self.z
 end
 
 -- =============================================================================
@@ -153,7 +161,7 @@ function Vector3:distanceSquared(other)
 end
 
 function Vector3:dot(other)
-  return self.x  * other.x + self.y * other.y + self.x * other.z
+  return (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
 end
 
 function Vector3:equals(other)
@@ -178,10 +186,10 @@ function Vector3:lengthSquared()
 end
 
 function Vector3:normalise()
-  local v = 1 / self:length()
-  self.x = self.x * v
-  self.y = self.y * v
-  self.z = self.z * v
+  local v = self:length()
+  self.x = self.x / v
+  self.y = self.y / v
+  self.z = self.z / v
   return self
 end
 
@@ -198,9 +206,9 @@ end
 -- =============================================================================
 
 function Vector3.cross(a, b)
-  local x = a.y * b.z - b.y * a.z
-  local y = -(a.x * b.z - b.z * a.z)
-  local z = a.x * b.y - b.x * a.y
+  local x = a.y * b.z - a.z * b.y
+  local y = a.z * b.x - a.x * b.z
+  local z = a.x * b.y - a.y * b.x
   return Vector3.fromPool(x, y, z)
 end
 
